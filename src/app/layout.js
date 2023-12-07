@@ -17,9 +17,17 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang='en'>
 			<body className={ubuntu.className}>
-				<Navbar />
-				{children}
-				<Footer />
+				{/* className container works because of "./globals.css". This can be replaced with Tailwind css */}
+				<div className='container'>
+					<Navbar />
+					{children}
+					<Footer />
+				</div>
+				{/* <div className='container'>
+					<Navbar />
+					{children}
+					<Footer />
+				</div> */}
 			</body>
 		</html>
 	);
