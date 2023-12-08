@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import hero from '../../public/hero.png';
+import { Button } from '@/components/Button/Button';
 
 export default function Home() {
 	return (
@@ -14,11 +15,7 @@ export default function Home() {
 					Turn your idea into Reality. We bring together the teams
 					from the global tech industry.
 				</p>
-				<button
-					onClick={() => console.log('log button')}
-					className='btn p-5 cursor-pointer bg-[#53c28b] border-none rounded-md w-max text-white'>
-					See Our works
-				</button>
+				<Button text='See Our Works' url='/portfolio' />
 			</div>
 			<div className='item flex-1 flex flex-col gap-14'>
 				<Image
