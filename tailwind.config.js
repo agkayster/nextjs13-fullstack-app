@@ -15,7 +15,7 @@ module.exports = {
 					'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
 			},
 			keyframes: {
-				move: {
+				moveContact: {
 					// '0%, 100%': { transform: 'rotate(-3deg)' },
 					// '50%': { transform: 'rotate(3deg)' },
 					from: {
@@ -23,6 +23,16 @@ module.exports = {
 					},
 					to: {
 						transform: 'translateY(0px) scale(1.03)',
+					},
+				},
+				moveHome: {
+					// '0%, 100%': { transform: 'rotate(-3deg)' },
+					// '50%': { transform: 'rotate(3deg)' },
+					from: {
+						transform: 'translateY(-15px)',
+					},
+					to: {
+						transform: 'translateY(10px)',
 					},
 				},
 			},
