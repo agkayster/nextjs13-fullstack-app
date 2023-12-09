@@ -16,7 +16,7 @@ const ContactPage = () => {
 						src={contactImg}
 						alt='contact image'
 						fill={true}
-						className='image object-contain animate-[move_3s_ease_infinite]'
+						className='image object-contain animate-[moveContact_3s_ease_infinite]'
 					/>
 				</div>
 				<form className='form flex-1 flex flex-col gap-5'>

@@ -21,7 +21,7 @@ export default function Home() {
 				<Image
 					src={hero}
 					alt='hero image'
-					className='w-full h-[31.25rem] object-cover animate-[move_3s_ease_infinite]'
+					className='w-full h-[31.25rem] object-cover animate-[moveHome_3s_ease_infinite]'
 				/>
 			</div>
 		</main>
