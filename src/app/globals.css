@@ -16,6 +16,20 @@ body {
 	color: rgb(var(--foreground-rgb));
 }
 
+.light {
+	background-color: white;
+	color: #111;
+}
+
+.dark {
+	background-color: black;
+	color: #bbb;
+}
+
+.theme {
+	transition: 1s all ease;
+}
+
 .container {
 	max-width: 85.4rem;
 	min-height: 100vh;
