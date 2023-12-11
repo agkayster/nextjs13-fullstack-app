@@ -1,9 +1,14 @@
-import React from 'react';
+'use client';
+
+import { ThemeContext } from '@/context/ThemeContext';
+import React, { useContext } from 'react';
 
 const DarkModeToggle = () => {
-	// const mode = 'dark';
+	const { handleToggle, mode } = useContext(ThemeContext);
 	return (
-		<div className='cont w-11 h-6 border-solid border-[.094rem] border-[#53c28b] rounded-[1.875rem] flex justify-between items-center p-0.5 relative cursor-pointer'>
+		<div
+			className='cont w-11 h-6 border-solid border-[.094rem] border-[#53c28b] rounded-[1.875rem] flex justify-between items-center p-0.5 relative cursor-pointer'
+			onClick={handleToggle}>
 			<div className='icon text-xs'>🌙</div>
 			<div className='icon text-xs'>☀️</div>
 			<div
