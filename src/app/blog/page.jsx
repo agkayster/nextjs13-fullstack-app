@@ -4,6 +4,11 @@ import Image from 'next/image';
 
 import blogImg from '../../../public/blog_image.jpeg';
 
+export const metadata = {
+	title: 'Blog page information',
+	description: 'This is the Blog page for all our posts',
+};
+
 /* we are fetching Data */
 async function getData() {
 	const res = await fetch('http://localhost:3000/api/posts', {
