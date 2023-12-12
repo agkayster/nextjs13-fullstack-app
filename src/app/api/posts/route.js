@@ -11,7 +11,7 @@ export const GET = async (request) => {
 		const posts = await Post.find();
 
 		/* respond with all posts */
-		return new NextResponse(posts, { status: 200 });
+		return new NextResponse(JSON.stringify(posts), { status: 200 });
 	} catch (error) {
 		return new NextResponse('Database Error', { status: 500 });
 	}
