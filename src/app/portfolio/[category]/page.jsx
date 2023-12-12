@@ -29,7 +29,7 @@ const CategoryPage = ({ params }) => {
 			<h1 className='catTitle text-[#53c28b]'>{category}</h1>
 			{/* nth child code should be used a step above the parent div for the content and image */}
 			<div className='[&>*:nth-child(odd)]:flex-row-reverse [&>*:nth-child(even)]:flex-row'>
-				{data.map(({ id, title, desc }) => (
+				{data.map(({ id, title, desc, image }) => (
 					<div
 						className='item flex gap-14 mt-[3.125rem] mb-[6.25rem]'
 						key={id}>
@@ -41,7 +41,7 @@ const CategoryPage = ({ params }) => {
 						<div className='imgContainer flex-1 h-[31.25rem] relative'>
 							<Image
 								alt='category image'
-								src={beachPic}
+								src={image}
 								fill={true}
 								className='img object-cover'
 							/>
