@@ -1,8 +1,18 @@
 import { NextResponse } from 'next/server';
 import connect from '@/utils/db';
+import Post from '@/models/Post';
 
 export const GET = async (request) => {
 	//here we fetch data from mongodb
+	try {
+		await connect();
 
-	return new NextResponse('it works', { status: 200 });
+		/* this would fetch all our posts */
+		const posts = await Post.find();
+
+		/* respond with all posts */
+		return new NextResponse(posts, { status: 200 });
+	} catch (error) {
+		return new NextResponse('Database Error', { status: 500 });
+	}
 };
