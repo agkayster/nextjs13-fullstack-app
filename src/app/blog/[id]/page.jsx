@@ -24,14 +24,12 @@ async function getData(id) {
 
 /* always use async/await */
 const BlogPost = async ({ params }) => {
-	console.log('get params =>', params);
 	const { id } = params;
 
 	/* id here is passed into the getData function above and into the API URL, this must match [id] in the subfolder 
 	category here is passed into the getData function above and into the API URL, this must match [category] in the subfolder 
 	*/
 	const data = await getData(id);
-	console.log('get data =>', data);
 
 	return (
 		<div className='cont'>
