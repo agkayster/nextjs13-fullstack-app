@@ -2,7 +2,7 @@
 import { Button } from '@/components/Button/Button';
 import Image from 'next/image';
 import React from 'react';
-import notFound from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 import beachPic from '../../../../public/beach_pic.jpeg';
 import { items } from './data';
