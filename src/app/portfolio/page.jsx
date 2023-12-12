@@ -8,6 +8,8 @@ const PortfolioPage = () => {
 				Choose a gallery
 			</h1>
 			<div className='items flex gap-[3.125rem]'>
+				{/*Click on the href in the parent component sends the params to
+				the [category] subfolder*/}
 				<Link
 					href='/portfolio/illustrations'
 					className="item border-solid border-[#bbb] border-[0.31rem] rounded-[0.31rem] 
