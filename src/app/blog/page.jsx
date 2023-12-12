@@ -27,7 +27,8 @@ const BlogPage = async () => {
 					key={userId}
 					/* id in href must match [id] subfolder or category in href url must match [category] subfolder
 					id or category or house property must also be present as a property in the API json data.
-					There must be a property called id, house, category in the API json data
+					There must be a property called id, house, category in the API json data.
+					Click on the href in the parent component sends the params to the [id] subfolder
 					*/
 					href={`/blog/${id}`}
 					className='cont flex items-center gap-[3.125rem] mb-[3.125rem]'>
