@@ -9,7 +9,7 @@ import mountainImg from '../../../../public/mountain_blog.jpeg';
 async function getData(id) {
 	const res = await fetch(
 		// id here is coming from params.id passed below
-		`https://jsonplaceholder.typicode.com/posts/${id}`,
+		`http://localhost:3000/api/posts/${id}`,
 		{
 			cache: 'no-store',
 		}
@@ -31,13 +31,16 @@ const BlogPost = async ({ params }) => {
 	category here is passed into the getData function above and into the API URL, this must match [category] in the subfolder 
 	*/
 	const data = await getData(id);
+	console.log('get data =>', data);
 
 	return (
 		<div className='cont'>
 			<div className='top flex'>
 				<div className='info flex-1'>
 					<h1 className='title text-[2.5rem] '>{data.title}</h1>
-					<p className='desc text-lg font-light'>{data.body}</p>
+					<p className='desc text-lg font-light'>
+						{data.description}
+					</p>
 					<div className='author flex items-center gap-2.5'>
 						<Image
 							src={blogAvatar}
@@ -46,7 +49,7 @@ const BlogPost = async ({ params }) => {
 							height={40}
 							className='avatar object-cover rounded-[50%]'
 						/>
-						<span className='username'>John Doe</span>
+						<span className='username'>{data.username}</span>
 					</div>
 				</div>
 				<div className='imageContainer flex-1 h-[18.75rem] relative'>
@@ -54,12 +57,12 @@ const BlogPost = async ({ params }) => {
 						alt='mountain image'
 						fill={true}
 						className='image object-cover'
-						src={mountainImg}
+						src={data.image}
 					/>
 				</div>
 			</div>
 			<div className='content mt-[3.125rem] text-xl font-light text-[#999] text-justify'>
-				<p className='text'>{data.body}</p>
+				<p className='text'>{data.content}</p>
 			</div>
 		</div>
 	);
