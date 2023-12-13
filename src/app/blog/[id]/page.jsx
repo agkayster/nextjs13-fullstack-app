@@ -22,7 +22,7 @@ async function getData(id) {
 	return res.json();
 }
 
-// or Dynamic metadata
+// or Dynamic metadata to implement SEO for single blog post
 export async function generateMetadata({ params }) {
 	const { id } = params;
 
