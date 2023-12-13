@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from '@/components/navbar/Navbar';
 import Footer from '@/components/footer/Footer';
 import { ThemeProvider } from '@/context/ThemeContext';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
 
 const ubuntu = Ubuntu({
 	weight: ['300', '400', '500', '700'],
@@ -19,17 +20,19 @@ export default function RootLayout({ children }) {
 		<html lang='en'>
 			<body className={ubuntu.className}>
 				<ThemeProvider>
-					{/* className container works because of "./globals.css". This can be replaced with Tailwind css */}
-					<div className='container'>
-						<Navbar />
-						{children}
-						<Footer />
-					</div>
-					{/* <div className='container'>
+					<AuthProvider>
+						{/* className container works because of "./globals.css". This can be replaced with Tailwind css */}
+						<div className='container'>
+							<Navbar />
+							{children}
+							<Footer />
+						</div>
+						{/* <div className='container'>
 					<Navbar />
 					{children}
 					<Footer />
 				</div> */}
+					</AuthProvider>
 				</ThemeProvider>
 			</body>
 		</html>
