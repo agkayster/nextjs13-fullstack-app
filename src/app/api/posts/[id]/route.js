@@ -20,16 +20,16 @@ export const GET = async (request, { params }) => {
 	}
 };
 
-export const DELETE = async (request, { params }) => {
-	const { id } = params;
+// export const DELETE = async (request, { params }) => {
+// 	const { id } = params;
 
-	try {
-		await connect();
+// 	try {
+// 		await connect();
 
-		await Post.findByIdAndDelete(id);
+// 		await Post.findByIdAndDelete(id);
 
-		return new NextResponse('Post has been deleted', { status: 200 });
-	} catch (err) {
-		return new NextResponse('Database Error', { status: 500 });
-	}
-};
+// 		return new NextResponse('Post has been deleted', { status: 200 });
+// 	} catch (err) {
+// 		return new NextResponse('Database Error', { status: 500 });
+// 	}
+// };
