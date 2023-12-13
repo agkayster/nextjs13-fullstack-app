@@ -46,8 +46,6 @@ const DashboardPage = () => {
 	// 	getData();
 	// }, []);
 
-	console.log('get data =>', data);
-
 	if (error) return <h1>Failed to Load</h1>;
 	if (isLoading) return <h1>Loading...</h1>;
 
