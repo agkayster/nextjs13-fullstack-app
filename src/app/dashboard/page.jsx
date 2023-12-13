@@ -4,10 +4,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import { ThemeContext } from '@/context/ThemeContext';
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import { useSession } from 'next-auth/react';
 
 const DashboardPage = () => {
+	const session = useSession();
+	console.log('get sessions =>', session);
+
+	const fetcher = (...args) => fetch(...args).then((res) => res.json());
 	const { mode } = useContext(ThemeContext);
 	/* fetching with nextjs useSWR hook better than useEffect fetch */
 	const { data, error, isLoading } = useSWR(
@@ -55,7 +58,7 @@ const DashboardPage = () => {
 			<ul>
 				{data.map(({ id, userId, title, body }) => (
 					<li
-						key={userId}
+						key={id}
 						className={`${
 							mode === 'dark' ? 'text-white' : 'text-black'
 						}`}>
