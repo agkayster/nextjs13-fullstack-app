@@ -1,5 +1,4 @@
 import NextAuth from 'next-auth';
-// import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
 const handler = NextAuth({
@@ -11,4 +10,5 @@ const handler = NextAuth({
 	],
 });
 
+/* when we pass our username and password is going to be a POST method and when we fetch user details, it is a GET method */
 export { handler as GET, handler as POST };
