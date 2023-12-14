@@ -10,5 +10,5 @@ const handler = NextAuth({
 	],
 });
 
-/* when we pass our username and password is going to be a POST method and when we fetch user details, it is a GET method */
+/* when we pass our username and password, it is going to be a POST method and when we fetch user details, it is a GET method */
 export { handler as GET, handler as POST };
