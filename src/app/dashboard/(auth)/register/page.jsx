@@ -22,6 +22,7 @@ const RegisterPage = () => {
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
+
 		try {
 			const res = await fetch('/api/auth/register', {
 				method: 'POST',
@@ -35,10 +36,13 @@ const RegisterPage = () => {
 				router.push(
 					'/dashboard/login?success=Account has been created'
 				);
+			setUserDetails({ username: '', email: '', password: '' });
 		} catch (error) {
 			setError(true);
 		}
 	};
+
+	console.log('get user details =>', userDetails);
 
 	return (
 		<div className='cont flex flex-col gap-[1.25rem] items-center justify-center'>
