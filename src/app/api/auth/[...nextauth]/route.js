@@ -14,7 +14,7 @@ const handler = NextAuth({
 		}),
 		CredentialsProvider({
 			id: 'credentials',
-			name: 'Credentials',
+			username: 'Credentials',
 			/* after getting the credentials we need to authorize them */
 			async authorize(credentials) {
 				/* use connect to check if our user is in our DB mongoDB */
@@ -22,7 +22,9 @@ const handler = NextAuth({
 
 				try {
 					/* find a particular user using their email credentials */
-					const user = User.findOne({ email: credentials.email });
+					const user = await User.findOne({
+						email: credentials.email,
+					});
 
 					if (user) {
 						/*check password and use bcrypt to compare the credentials password used during login 
@@ -46,6 +48,10 @@ const handler = NextAuth({
 			},
 		}),
 	],
+	pages: {
+		/* this is our error page, so we do not have to leave the login page on the browser */
+		error: '/dashboard/login',
+	},
 });
 
 /* when we pass our username and password, it is going to be a POST method and when we fetch user details, it is a GET method */
