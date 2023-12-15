@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 const RegisterPage = () => {
 	const [userDetails, setUserDetails] = useState({
-		username: '',
+		name: '',
 		email: '',
 		password: '',
 	});
@@ -36,7 +36,7 @@ const RegisterPage = () => {
 				router.push(
 					'/dashboard/login?success=Account has been created'
 				);
-			setUserDetails({ username: '', email: '', password: '' });
+			setUserDetails({ name: '', email: '', password: '' });
 		} catch (error) {
 			setError(true);
 		}
@@ -51,9 +51,9 @@ const RegisterPage = () => {
 				className='form w-[18.75rem] flex flex-col gap-[1.25rem]'>
 				<input
 					type='text'
-					placeholder='username'
-					value={userDetails.username || ''}
-					onChange={(e) => handleFormChange(e, 'username')}
+					placeholder='name'
+					value={userDetails.name || ''}
+					onChange={(e) => handleFormChange(e, 'name')}
 					className='username p-[1.25rem] bg-transparent border-solid border-2 border-[#bbb] rounded-md text-xl font-bold text-[#bbb]'
 					required
 				/>

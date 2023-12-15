@@ -14,7 +14,7 @@ const handler = NextAuth({
 		}),
 		CredentialsProvider({
 			id: 'credentials',
-			username: 'Credentials',
+			name: 'Credentials',
 			/* after getting the credentials we need to authorize them */
 			async authorize(credentials) {
 				/* use connect to check if our user is in our DB mongoDB */
