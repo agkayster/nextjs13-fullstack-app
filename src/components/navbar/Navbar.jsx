@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
+import { signOut } from 'next-auth/react';
 import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 
 const links = [
@@ -50,7 +51,7 @@ const Navbar = () => {
 					</Link>
 				))}
 				<button
-					onClick={() => console.log('logged out')}
+					onClick={() => signOut()}
 					className='p-1.5 border-none bg-[#53c28b] text-white cursor-pointer rounded'>
 					Logout
 				</button>
