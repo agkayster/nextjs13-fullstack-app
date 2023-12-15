@@ -2,13 +2,14 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
-
 import { ThemeContext } from '@/context/ThemeContext';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const DashboardPage = () => {
 	const session = useSession();
-	console.log('get sessions =>', session);
+
+	const router = useRouter();
 
 	const fetcher = (...args) => fetch(...args).then((res) => res.json());
 	const { mode } = useContext(ThemeContext);
@@ -46,26 +47,34 @@ const DashboardPage = () => {
 	// 	getData();
 	// }, []);
 
+	if (session.status === 'loading') {
+		return <p>Loading...</p>;
+	}
+
+	if (session.status === 'unauthenticated') {
+		router?.push('/dashboard/login');
+	}
+
 	if (error) return <h1>Failed to Load</h1>;
 	if (isLoading) return <h1>Loading...</h1>;
 
-	// const textColor = mode === 'dark' ? 'text-white' : 'text-[#bbb]';
-
-	return (
-		<>
-			<ul>
-				{data.map(({ id, userId, title, body }) => (
-					<li
-						key={id}
-						className={`${
-							mode === 'dark' ? 'text-white' : 'text-black'
-						}`}>
-						{title}
-					</li>
-				))}
-			</ul>
-		</>
-	);
+	if (session.status === 'authenticated') {
+		return (
+			<>
+				<ul>
+					{data.map(({ id, userId, title, body }) => (
+						<li
+							key={id}
+							className={`${
+								mode === 'dark' ? 'text-white' : 'text-black'
+							}`}>
+							{title}
+						</li>
+					))}
+				</ul>
+			</>
+		);
+	}
 };
 
 export default DashboardPage;
