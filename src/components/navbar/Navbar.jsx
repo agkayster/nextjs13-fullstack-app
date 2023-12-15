@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
-import { signOut } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 
 const links = [
@@ -38,6 +38,9 @@ const links = [
 ];
 
 const Navbar = () => {
+	/* destructure status from useSession hook */
+	const { status } = useSession();
+
 	return (
 		<div className='h-28 flex justify-between items-center'>
 			<Link href='/' className='font-bold text-2xl'>
@@ -50,11 +53,14 @@ const Navbar = () => {
 						{title}
 					</Link>
 				))}
-				<button
-					onClick={() => signOut()}
-					className='p-1.5 border-none bg-[#53c28b] text-white cursor-pointer rounded'>
-					Logout
-				</button>
+				{/* apply the condition below to protect logout button */}
+				{status === 'authenticated' && (
+					<button
+						onClick={() => signOut()}
+						className='p-1.5 border-none bg-[#53c28b] text-white cursor-pointer rounded'>
+						Logout
+					</button>
+				)}
 			</div>
 		</div>
 	);
