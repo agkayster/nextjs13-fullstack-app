@@ -2,22 +2,53 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
+import Image from 'next/image';
 import { ThemeContext } from '@/context/ThemeContext';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 const DashboardPage = () => {
+	const [postDetail, setPostDetail] = useState({
+		title: '',
+		description: '',
+		image: '',
+		content: '',
+	});
 	const session = useSession();
 
 	const router = useRouter();
 
 	const fetcher = (...args) => fetch(...args).then((res) => res.json());
 	const { mode } = useContext(ThemeContext);
+
 	/* fetching with nextjs useSWR hook better than useEffect fetch */
 	const { data, error, isLoading } = useSWR(
-		'https://jsonplaceholder.typicode.com/posts',
+		`/api/posts?username=${session?.data?.user?.name}`,
 		fetcher
 	);
+
+	const handlePostFormChange = (e, field) => {
+		const { value } = e.target;
+
+		setPostDetail({ ...postDetail, [field]: value });
+	};
+
+	const handlePostSubmit = async (e) => {
+		e.preventDefault();
+
+		try {
+			await fetch('/api/posts/', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					...postDetail,
+					username: session?.data?.user?.name,
+				}),
+			});
+		} catch (error) {
+			console.log('get error =>', error);
+		}
+	};
 	// const [data, setData] = useState([]);
 	// const [errors, setErrors] = useState(false);
 	// const [isLoading, setIsLoading] = useState(false);
@@ -55,24 +86,70 @@ const DashboardPage = () => {
 		router?.push('/dashboard/login');
 	}
 
+	console.log('get name data =>', data);
+	console.log('get post detail =>', postDetail);
+
 	if (error) return <h1>Failed to Load</h1>;
 	if (isLoading) return <h1>Loading...</h1>;
 
 	if (session.status === 'authenticated') {
 		return (
-			<>
-				<ul>
-					{data.map(({ id, userId, title, body }) => (
-						<li
-							key={id}
-							className={`${
-								mode === 'dark' ? 'text-white' : 'text-black'
-							}`}>
-							{title}
-						</li>
-					))}
-				</ul>
-			</>
+			<div className='cont'>
+				<div className='posts'>
+					{data.map(
+						({
+							_id: id,
+							title,
+							description,
+							image,
+							username,
+							content,
+						}) => (
+							<div key={id} className='post'>
+								<div className='imgContainer'>
+									<Image alt='post image' src={image} />
+								</div>
+								<h2 className='postTitle'>{title}</h2>
+								<span className='delete'>X</span>
+							</div>
+						)
+					)}
+				</div>
+				<form className='new' onSubmit={handlePostSubmit}>
+					<h1>Add New Post</h1>
+					<input
+						type='text'
+						placeholder='Title'
+						value={postDetail.title || ''}
+						onChange={(e) => handlePostFormChange(e, 'title')}
+						className='inputTitle'
+					/>
+					<input
+						type='text'
+						placeholder='Description'
+						value={postDetail.description || ''}
+						onChange={(e) => handlePostFormChange(e, 'description')}
+						className='inputDesc'
+					/>
+					<input
+						type='text'
+						placeholder='ImageURL'
+						value={postDetail.image || ''}
+						onChange={(e) => handlePostFormChange(e, 'image')}
+						className='inputImg'
+					/>
+					<textarea
+						placeholder='Content'
+						cols='30'
+						rows='10'
+						value={postDetail.content || ''}
+						onChange={(e) => handlePostFormChange(e, 'content')}
+						className='textArea'></textarea>
+					<button type='submit' className='postBtn'>
+						Submit
+					</button>
+				</form>
+			</div>
 		);
 	}
 };
