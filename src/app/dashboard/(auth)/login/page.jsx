@@ -1,10 +1,13 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const LoginPage = () => {
+	const session = useSession();
+
 	const [userDetails, setUserDetails] = useState({
 		email: '',
 		password: '',
@@ -26,6 +29,14 @@ const LoginPage = () => {
 		/* pass our email and password in sigin credentialsProvider */
 		await signIn('credentials', userDetails);
 	};
+
+	if (session.status === 'loading') {
+		return <p>Loading...</p>;
+	}
+
+	if (session.status === 'authenticated') {
+		router?.push('/dashboard');
+	}
 
 	return (
 		<div className='cont flex flex-col gap-[1.25rem] items-center justify-center'>
@@ -53,9 +64,12 @@ const LoginPage = () => {
 					Login
 				</button>
 			</form>
-			<button className='' onClick={() => signIn('google')}>
-				Log in with Google
-			</button>
+			<div>
+				<button className='' onClick={() => signIn('google')}>
+					Log in with Google
+				</button>
+				<Link href='/dashboard/register'> or Register</Link>
+			</div>
 		</div>
 	);
 };

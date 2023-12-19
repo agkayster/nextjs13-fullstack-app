@@ -3,8 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 const RegisterPage = () => {
+	/* use session to protect our register page */
+	const session = useSession();
+
 	const [userDetails, setUserDetails] = useState({
 		name: '',
 		email: '',
@@ -42,7 +46,9 @@ const RegisterPage = () => {
 		}
 	};
 
-	console.log('get user details =>', userDetails);
+	if (session.status === 'authenticated') {
+		router?.push('/dashboard');
+	}
 
 	return (
 		<div className='cont flex flex-col gap-[1.25rem] items-center justify-center'>
