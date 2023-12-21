@@ -21,7 +21,7 @@ const DashboardPage = () => {
 
 	/* fetching with nextjs useSWR hook better than useEffect fetch. We fetch based on the
 	 username of the user who is logged in */
-	const { data, error, isLoading } = useSWR(
+	const { data, mutate, error, isLoading } = useSWR(
 		`/api/posts?username=${session?.data?.user?.name}`,
 		fetcher
 	);
@@ -45,6 +45,18 @@ const DashboardPage = () => {
 					...postDetail,
 					username: session?.data?.user?.name,
 				}),
+			});
+
+			/* mutate refreshes our page automatically once we submit a new post,so we don't have to do it manually */
+			mutate();
+
+			/* this empties the input boxes once we have submitted a post,
+			by setting postDetail state to empty string */
+			setPostDetail({
+				title: '',
+				description: '',
+				image: '',
+				content: '',
 			});
 		} catch (error) {
 			console.log('get error =>', error);
@@ -96,8 +108,8 @@ const DashboardPage = () => {
 
 	if (session.status === 'authenticated') {
 		return (
-			<div className='cont'>
-				<div className='posts'>
+			<div className='cont flex gap-28'>
+				<div className='posts flex-1'>
 					{data.map(
 						({
 							_id: id,
@@ -107,43 +119,55 @@ const DashboardPage = () => {
 							username,
 							content,
 						}) => (
-							<div key={id} className='post'>
-								<div className='imgContainer'>
+							<div
+								key={id}
+								className='post flex items-center justify-between my-12'>
+								<div className='imgContainer w-52 h-24 relative'>
 									<Image
 										alt='post image'
 										src={image}
 										width={100}
 										height={100}
+										className='img object-cover'
 									/>
 								</div>
 								<h2 className='postTitle'>{title}</h2>
-								<span className='delete'>X</span>
+								<span className='delete cursor-pointer text-red-500'>
+									X
+								</span>
 							</div>
 						)
 					)}
 				</div>
-				<form className='new' onSubmit={handlePostSubmit}>
-					<h1>Add New Post</h1>
+				<form
+					className='newPost flex-1 flex flex-col gap-5'
+					onSubmit={handlePostSubmit}>
+					<h1 className='text-xl font-bold text-center'>
+						Add New Post
+					</h1>
 					<input
 						type='text'
 						placeholder='Title'
 						value={postDetail.title || ''}
 						onChange={(e) => handlePostFormChange(e, 'title')}
-						className='inputTitle'
+						className='inputTitle p-2.5 bg-transparent border-solid border-2 
+						border-[#bbb] rounded text-[#bbb] text-xl font-bold'
 					/>
 					<input
 						type='text'
 						placeholder='Description'
 						value={postDetail.description || ''}
 						onChange={(e) => handlePostFormChange(e, 'description')}
-						className='inputDesc'
+						className='inputDesc p-2.5 bg-transparent border-solid border-2 
+						border-[#bbb] rounded text-[#bbb] text-xl font-bold'
 					/>
 					<input
 						type='text'
 						placeholder='ImageURL'
 						value={postDetail.image || ''}
 						onChange={(e) => handlePostFormChange(e, 'image')}
-						className='inputImg'
+						className='inputImg p-2.5 bg-transparent border-solid border-2 
+						border-[#bbb] rounded text-[#bbb] text-xl font-bold'
 					/>
 					<textarea
 						placeholder='Content'
@@ -151,8 +175,11 @@ const DashboardPage = () => {
 						rows='10'
 						value={postDetail.content || ''}
 						onChange={(e) => handlePostFormChange(e, 'content')}
-						className='textArea'></textarea>
-					<button type='submit' className='postBtn'>
+						className='textArea p-2.5 bg-transparent border-solid border-2 
+						border-[#bbb] rounded text-[#bbb] text-xl font-bold'></textarea>
+					<button
+						type='submit'
+						className='postBtn p-5 cursor-pointer bg-[#53c28b] border-none rounded-md text-[#eee] font-bold'>
 						Submit
 					</button>
 				</form>
