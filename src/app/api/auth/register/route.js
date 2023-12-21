@@ -14,7 +14,7 @@ export const POST = async (request) => {
 
 	const newUser = new User({ name, email, password: hashedPassword });
 
-	console.log('get new user =>', newUser);
+	// console.log('get new user =>', newUser);
 
 	try {
 		await newUser.save();

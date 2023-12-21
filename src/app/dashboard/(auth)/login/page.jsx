@@ -34,6 +34,7 @@ const LoginPage = () => {
 		return <p>Loading...</p>;
 	}
 
+	/* once user is logged in and authenticated, they are redirected to "/dashboard" page */
 	if (session.status === 'authenticated') {
 		router?.push('/dashboard');
 	}

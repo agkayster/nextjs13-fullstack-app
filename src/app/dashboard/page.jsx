@@ -3,7 +3,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import Image from 'next/image';
-import { ThemeContext } from '@/context/ThemeContext';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
@@ -19,7 +18,6 @@ const DashboardPage = () => {
 	const router = useRouter();
 
 	const fetcher = (...args) => fetch(...args).then((res) => res.json());
-	const { mode } = useContext(ThemeContext);
 
 	/* fetching with nextjs useSWR hook better than useEffect fetch. We fetch based on the
 	 username of the user who is logged in */
@@ -34,6 +32,7 @@ const DashboardPage = () => {
 		setPostDetail({ ...postDetail, [field]: value });
 	};
 
+	/* submitting new Posts */
 	const handlePostSubmit = async (e) => {
 		e.preventDefault();
 
@@ -84,12 +83,13 @@ const DashboardPage = () => {
 		return <p>Loading...</p>;
 	}
 
+	/* if user is not logged in and authenticated, redirect the user to "/dashboard/login" page */
 	if (session.status === 'unauthenticated') {
 		router?.push('/dashboard/login');
 	}
 
-	console.log('get name data =>', data);
-	console.log('get post detail =>', postDetail);
+	// console.log('get name data =>', data);
+	// console.log('get post detail =>', postDetail);
 
 	if (error) return <h1>Failed to Load</h1>;
 	if (isLoading) return <h1>Loading...</h1>;
