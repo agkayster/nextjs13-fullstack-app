@@ -27,12 +27,6 @@ const DashboardPage = () => {
 		fetcher
 	);
 
-	const [postData, setPostData] = useState(null);
-
-	useEffect(() => {
-		setPostData(data);
-	}, [data]);
-
 	const handlePostFormChange = (e, field) => {
 		const { value } = e.target;
 
@@ -69,12 +63,6 @@ const DashboardPage = () => {
 			console.log('get error =>', error);
 		}
 	};
-
-	/* don't do this, if you have a DELETE API endpoint already */
-	// const handlePostDelete = async (postId) => {
-	// 	const newData = await postData?.filter(({ _id: id }) => id !== postId);
-	// 	setPostData(newData);
-	// };
 
 	/* Do this, if you have a DELETE API endpoint */
 	const handlePostDelete = async (postId) => {
