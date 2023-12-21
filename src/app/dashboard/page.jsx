@@ -13,6 +13,7 @@ const DashboardPage = () => {
 		image: '',
 		content: '',
 	});
+
 	const session = useSession();
 
 	const router = useRouter();
@@ -20,11 +21,17 @@ const DashboardPage = () => {
 	const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 	/* fetching with nextjs useSWR hook better than useEffect fetch. We fetch based on the
-	 username of the user who is logged in */
+	username of the user who is logged in */
 	const { data, mutate, error, isLoading } = useSWR(
 		`/api/posts?username=${session?.data?.user?.name}`,
 		fetcher
 	);
+
+	const [postData, setPostData] = useState(null);
+
+	useEffect(() => {
+		setPostData(data);
+	}, [data]);
 
 	const handlePostFormChange = (e, field) => {
 		const { value } = e.target;
@@ -62,6 +69,28 @@ const DashboardPage = () => {
 			console.log('get error =>', error);
 		}
 	};
+
+	/* don't do this, if you have a DELETE API endpoint already */
+	// const handlePostDelete = async (postId) => {
+	// 	const newData = await postData?.filter(({ _id: id }) => id !== postId);
+	// 	setPostData(newData);
+	// };
+
+	/* Do this, if you have a DELETE API endpoint */
+	const handlePostDelete = async (postId) => {
+		try {
+			await fetch(`api/posts/${postId}`, {
+				method: 'DELETE',
+				headers: { 'Content-Type': 'application/json' },
+			});
+
+			/* once we delete, mutate helps us to refresh automatically */
+			mutate();
+		} catch (error) {
+			console.log('get delete error =>', error);
+		}
+	};
+
 	// const [data, setData] = useState([]);
 	// const [errors, setErrors] = useState(false);
 	// const [isLoading, setIsLoading] = useState(false);
@@ -100,7 +129,7 @@ const DashboardPage = () => {
 		router?.push('/dashboard/login');
 	}
 
-	// console.log('get name data =>', data);
+	// console.log('get name data =>', postData);
 	// console.log('get post detail =>', postDetail);
 
 	if (error) return <h1>Failed to Load</h1>;
@@ -110,7 +139,7 @@ const DashboardPage = () => {
 		return (
 			<div className='cont flex gap-28'>
 				<div className='posts flex-1'>
-					{data.map(
+					{postData?.map(
 						({
 							_id: id,
 							title,
@@ -132,7 +161,9 @@ const DashboardPage = () => {
 									/>
 								</div>
 								<h2 className='postTitle'>{title}</h2>
-								<span className='delete cursor-pointer text-red-500'>
+								<span
+									onClick={() => handlePostDelete(id)}
+									className='delete cursor-pointer text-red-500'>
 									X
 								</span>
 							</div>
