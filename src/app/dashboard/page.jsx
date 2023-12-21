@@ -21,7 +21,8 @@ const DashboardPage = () => {
 	const fetcher = (...args) => fetch(...args).then((res) => res.json());
 	const { mode } = useContext(ThemeContext);
 
-	/* fetching with nextjs useSWR hook better than useEffect fetch */
+	/* fetching with nextjs useSWR hook better than useEffect fetch. We fetch based on the
+	 username of the user who is logged in */
 	const { data, error, isLoading } = useSWR(
 		`/api/posts?username=${session?.data?.user?.name}`,
 		fetcher
@@ -36,6 +37,7 @@ const DashboardPage = () => {
 	const handlePostSubmit = async (e) => {
 		e.preventDefault();
 
+		/* we add the name of the user to the details of the post the user created */
 		try {
 			await fetch('/api/posts/', {
 				method: 'POST',
@@ -107,7 +109,12 @@ const DashboardPage = () => {
 						}) => (
 							<div key={id} className='post'>
 								<div className='imgContainer'>
-									<Image alt='post image' src={image} />
+									<Image
+										alt='post image'
+										src={image}
+										width={100}
+										height={100}
+									/>
 								</div>
 								<h2 className='postTitle'>{title}</h2>
 								<span className='delete'>X</span>
