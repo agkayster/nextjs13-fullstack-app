@@ -36,6 +36,7 @@ const RegisterPage = () => {
 				body: JSON.stringify(userDetails),
 			});
 
+			/* once user is registered, user is redirected to /dashboard/login page */
 			res.status === 201 &&
 				router.push(
 					'/dashboard/login?success=Account has been created'
@@ -46,6 +47,7 @@ const RegisterPage = () => {
 		}
 	};
 
+	/* once user is authenticated and is in dashboard page, user cannot be redirected to register page again */
 	if (session.status === 'authenticated') {
 		router?.push('/dashboard');
 	}

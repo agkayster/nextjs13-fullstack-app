@@ -16,16 +16,19 @@ body {
 	color: rgb(var(--foreground-rgb));
 }
 
+/* here we style our light background for the app which comes from mode in ThemeContext */
 .light {
 	background-color: white;
 	color: #111;
 }
 
+/* here we style our dark background for the app which comes from mode in ThemeContext */
 .dark {
 	background-color: black;
 	color: #bbb;
 }
 
+/* here we style our theme (how quickly we transit from light to dark) for the app which comes from mode in ThemeContext */
 .theme {
 	transition: 1s all ease;
 }

@@ -2,8 +2,11 @@
 import Link from 'next/link';
 import React from 'react';
 import { useSession, signOut } from 'next-auth/react';
+
+/* import our DarkModeToggle component */
 import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 
+/* links to be used in our navbar in an array, so we use it dynamically and do not repeat code */
 const links = [
 	{
 		id: 1,
@@ -47,13 +50,14 @@ const Navbar = () => {
 				ejikechiboka
 			</Link>
 			<div className='links flex items-center gap-5'>
+				{/* set our DarkModeToggle component in the navbar */}
 				<DarkModeToggle />
 				{links.map(({ id, title, url }) => (
 					<Link key={id} href={url} className=''>
 						{title}
 					</Link>
 				))}
-				{/* apply the condition below to protect logout button */}
+				{/* apply the condition below to protect logout button and get signOut from useSession hook */}
 				{status === 'authenticated' && (
 					<button
 						onClick={() => signOut()}
