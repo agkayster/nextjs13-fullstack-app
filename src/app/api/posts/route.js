@@ -7,13 +7,13 @@ export const GET = async (request) => {
 	const url = new URL(request.url);
 
 	/* we search for the username */
-	const username = url.searchParams.get('username');
+	const username = url.searchParams.get('name');
 
 	//here we fetch data from mongodb
 	try {
 		await connect();
 
-		/* this would fetch all our posts and if there is a username it should fetch that username */
+		/* this would fetch all our posts and if there is a name it should fetch that name */
 		const posts = await Post.find(username && { username });
 
 		/* respond with all posts */

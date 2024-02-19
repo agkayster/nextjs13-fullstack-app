@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import blogImg from '../../../public/blog_image.jpeg';
 
+// SEO foe the general Blog page. to be used for Owoye // 
 export const metadata = {
 	title: 'Blog page information',
 	description: 'This is the Blog page for all our posts',
