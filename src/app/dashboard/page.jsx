@@ -127,7 +127,7 @@ const DashboardPage = () => {
 		return (
 			<div className='cont flex gap-28'>
 				<div className='posts flex-1'>
-					{postData?.map(
+					{data?.map(
 						({
 							_id: id,
 							title,
@@ -147,6 +147,7 @@ const DashboardPage = () => {
 										height={100}
 										className='img object-cover'
 									/>
+									<p>{username}</p>
 								</div>
 								<h2 className='postTitle'>{title}</h2>
 								<span

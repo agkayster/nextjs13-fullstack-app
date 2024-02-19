@@ -61,7 +61,9 @@ const LoginPage = () => {
 					className='password p-[1.25rem] bg-transparent border-solid border-2 border-[#bbb] rounded-md text-xl font-bold text-[#bbb]'
 					required
 				/>
-				<button className='btn w-[18.75rem] p-5 cursor-pointer bg-[#53c28b] border-none rounded-md text-[#eee] font-bold'>
+				<button
+					type='submit'
+					className='btn w-[18.75rem] p-5 cursor-pointer bg-[#53c28b] border-none rounded-md text-[#eee] font-bold'>
 					Login
 				</button>
 			</form>
